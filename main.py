@@ -201,14 +201,12 @@ for FILE in files:
             elif info.extension[0] in ["mp3", "wav", "flac"]:
                 folder = "audio\\"
             else:
-                shit = True
-            if shit:
+                continue
+            try:
+                os.makedirs("cache\\" + folder)
+            except FileExistsError:
                 pass
-            else:
-                try:
-                    os.makedirs("cache\\" + folder)
-                except FileExistsError:
-                    pass
-                shutil.copyfile(PATH_TO_CACHE + FILE, PATH_TO_FILE + "cache\\" + folder + str(int(FILE[2:], 16)) + "." + info.extension[0].replace(".m4v",".mp4"))
+            print("Copying file:",PATH_TO_FILE + "cache\\" + folder + str(int(FILE[2:], 16)) + "." + info.extension[0].replace(".m4v",".mp4"))
+            shutil.copyfile(PATH_TO_CACHE + FILE, PATH_TO_FILE + "cache\\" + folder + str(int(FILE[2:], 16)) + "." + info.extension[0].replace(".m4v",".mp4"))
         else:
             print('Cannot determine %s' % file.name)
